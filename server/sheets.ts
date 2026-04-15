@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import { ENV } from "./_core/env";
 
 export type Lead = {
@@ -18,7 +18,7 @@ export type InsertLead = Omit<Lead, "id" | "createdAt">;
 
 export async function appendLead(data: InsertLead): Promise<void> {
   const payload = {
-    id: nanoid(),
+    id: randomUUID(),
     createdAt: new Date().toISOString(),
     ...data,
   };
