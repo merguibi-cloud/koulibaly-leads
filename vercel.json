@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "builds": [
     {
-      "src": "api/index.cjs",
+      "src": "api/index.js",
       "use": "@vercel/node",
       "config": {
         "includeFiles": ["dist/public/**"]
@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/index.cjs"
+      "dest": "/api/index.js"
     }
   ]
 }
