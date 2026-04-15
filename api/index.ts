@@ -1,10 +1,14 @@
 import "dotenv/config";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "../server/_core/oauth";
 import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
-import { serveStatic } from "../server/_core/vite";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -21,6 +25,11 @@ app.use(
   })
 );
 
-serveStatic(app);
+// Serve static files built by vite
+const staticPath = path.resolve(__dirname, "../dist/public");
+app.use(express.static(staticPath));
+app.use("*", (_req, res) => {
+  res.sendFile(path.resolve(staticPath, "index.html"));
+});
 
 export default app;
