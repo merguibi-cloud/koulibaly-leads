@@ -72,16 +72,21 @@ export const appRouter = router({
     submit: publicProcedure
       .input(leadSchema)
       .mutation(async ({ input }) => {
-        await appendLead({
-          category: input.category,
-          firstName: input.firstName,
-          lastName: input.lastName,
-          email: input.email,
-          phone: input.phone ?? null,
-          company: input.company ?? null,
-          country: input.country ?? null,
-          message: input.message,
-        });
+        try {
+          await appendLead({
+            category: input.category,
+            firstName: input.firstName,
+            lastName: input.lastName,
+            email: input.email,
+            phone: input.phone ?? null,
+            company: input.company ?? null,
+            country: input.country ?? null,
+            message: input.message,
+          });
+        } catch (e) {
+          console.error("[Sheets] appendLead failed:", e);
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: String(e) });
+        }
 
         // Notify owner
         try {
