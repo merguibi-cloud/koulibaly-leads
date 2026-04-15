@@ -1,5 +1,7 @@
 import "dotenv/config";
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./_core/oauth";
 import { appRouter } from "./routers";
@@ -19,5 +21,13 @@ app.use(
     createContext,
   })
 );
+
+// Serve frontend static files — path resolves relative to this bundle
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const staticPath = path.resolve(__dirname, "..", "dist", "public");
+app.use(express.static(staticPath));
+app.use("*", (_req, res) => {
+  res.sendFile(path.resolve(staticPath, "index.html"));
+});
 
 export default app;
