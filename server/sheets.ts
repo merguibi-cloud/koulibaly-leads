@@ -1,4 +1,3 @@
-import { google } from "googleapis";
 import { nanoid } from "nanoid";
 import { ENV } from "./_core/env";
 
@@ -17,85 +16,30 @@ export type Lead = {
 
 export type InsertLead = Omit<Lead, "id" | "createdAt">;
 
-const HEADER_ROW = [
-  "ID",
-  "Date",
-  "Catégorie",
-  "Prénom",
-  "Nom",
-  "Email",
-  "Téléphone",
-  "Entreprise",
-  "Pays",
-  "Message",
-];
+export async function appendLead(data: InsertLead): Promise<void> {
+  const payload = {
+    id: nanoid(),
+    createdAt: new Date().toISOString(),
+    ...data,
+  };
 
-function getSheetsClient() {
-  const credentials = JSON.parse(ENV.googleServiceAccountJson);
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
-  return google.sheets({ version: "v4", auth });
-}
-
-export async function initSheet(): Promise<void> {
-  const sheets = getSheetsClient();
-  const { data } = await sheets.spreadsheets.values.get({
-    spreadsheetId: ENV.googleSpreadsheetId,
-    range: "A1:J1",
+  const res = await fetch(ENV.googleAppsScriptUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
-  if (!data.values || data.values.length === 0) {
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: ENV.googleSpreadsheetId,
-      range: "A1:J1",
-      valueInputOption: "RAW",
-      requestBody: { values: [HEADER_ROW] },
-    });
-    console.log("[Sheets] Header row initialized.");
+  if (!res.ok) {
+    throw new Error(`Failed to write to Google Sheet: ${res.status}`);
   }
 }
 
-export async function appendLead(data: InsertLead): Promise<void> {
-  const sheets = getSheetsClient();
-  const id = nanoid();
-  const now = new Date().toISOString();
-
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: ENV.googleSpreadsheetId,
-    range: "A:J",
-    valueInputOption: "RAW",
-    insertDataOption: "INSERT_ROWS",
-    requestBody: {
-      values: [
-        [
-          id,
-          now,
-          data.category,
-          data.firstName,
-          data.lastName,
-          data.email,
-          data.phone ?? "",
-          data.company ?? "",
-          data.country ?? "",
-          data.message,
-        ],
-      ],
-    },
-  });
-}
-
 export async function getAllLeads(): Promise<Lead[]> {
-  const sheets = getSheetsClient();
-  const { data } = await sheets.spreadsheets.values.get({
-    spreadsheetId: ENV.googleSpreadsheetId,
-    range: "A:J",
-  });
-
-  if (!data.values || data.values.length <= 1) return [];
-
-  return data.values.slice(1).map((row) => ({
+  const res = await fetch(`${ENV.googleAppsScriptUrl}?action=getAll`);
+  if (!res.ok) throw new Error(`Failed to read from Google Sheet: ${res.status}`);
+  const json = await res.json() as { rows: string[][] };
+  if (!json.rows || json.rows.length <= 1) return [];
+  return json.rows.slice(1).map((row) => ({
     id: String(row[0] ?? ""),
     createdAt: new Date(String(row[1] ?? "")),
     category: String(row[2] ?? ""),
