@@ -66,7 +66,7 @@ export default function Home() {
         {/* ── Left: sticky photo ── */}
         <div className="relative overflow-hidden lg:sticky lg:top-0 lg:h-screen">
           {/* Sénégal flag bar */}
-          <div className="absolute left-0 top-0 bottom-0 w-1.5 z-20 flex flex-col">
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 z-20 flex flex-col">
             <div className="flex-1 bg-[#00853F]" />
             <div className="flex-1 bg-[#FDEF42]" />
             <div className="flex-1 bg-[#E31E24]" />
@@ -92,17 +92,17 @@ export default function Home() {
             </p>
 
             <h1
-              className="font-black uppercase leading-none tracking-tight text-white mb-5"
-              style={{ fontSize: "clamp(3rem, 7.5vw, 6.5rem)" }}
+              className="uppercase leading-none text-white mb-5"
+              style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(3.5rem, 8vw, 7rem)" }}
             >
               Kalidou<br />Koulibaly
             </h1>
 
-            <p className="text-[11px] font-light tracking-[4px] uppercase text-white/45 mb-7">
+            <p className="text-[11px] font-light tracking-[4px] uppercase text-white/50 mb-7">
               Défenseur&nbsp;·&nbsp;Entrepreneur&nbsp;·&nbsp;Investisseur
             </p>
 
-            <p className="text-sm font-light leading-relaxed text-white/60 max-w-sm">
+            <p className="text-sm font-light leading-relaxed text-white/70 max-w-sm">
               Capitaine de l'équipe nationale du Sénégal, double Champion
               d'Afrique (2021 &amp; 2025), Kalidou Koulibaly construit aujourd'hui un
               héritage au-delà des terrains — investissements tech,
