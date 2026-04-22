@@ -134,114 +134,110 @@ export default function Home() {
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            {/* Section label */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-[9px] font-medium tracking-[4px] uppercase text-primary">Prendre contact</span>
-              <div className="flex-1 h-px bg-border" />
-            </div>
 
-            {/* Category cards */}
-            <div className="grid grid-cols-3 gap-2 mb-5">
+            {/* Category */}
+            <p className="text-[9px] font-medium tracking-[4px] uppercase text-muted-foreground mb-3">
+              Objet de votre demande
+            </p>
+            <div className="grid grid-cols-4 gap-2 mb-1">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
                   onClick={() => handleCategorySelect(cat.id)}
-                  className={`flex flex-col items-center gap-1.5 p-3 rounded-md border text-center transition-all duration-200 cursor-pointer
+                  className={`px-3 py-2.5 border text-center transition-colors duration-150 cursor-pointer
+                    text-[9px] font-medium tracking-[1.5px] uppercase
                     ${selectedCategory === cat.id
-                      ? "border-primary bg-primary/15 shadow-[0_0_0_1px_rgba(74,158,224,0.3)]"
-                      : "border-border bg-card hover:border-primary/40 hover:bg-primary/8"
+                      ? "border-foreground/80 text-foreground"
+                      : "border-foreground/20 text-muted-foreground hover:border-foreground/50 hover:text-foreground"
                     }`}
                 >
-                  <span className="text-lg leading-none">{cat.icon}</span>
-                  <span className={`text-[9px] font-medium tracking-[1.2px] uppercase transition-colors
-                    ${selectedCategory === cat.id ? "text-sky-300" : "text-muted-foreground"}`}>
-                    {cat.label}
-                  </span>
+                  {cat.label}
                 </button>
               ))}
             </div>
             {errors.category && (
-              <p className="text-destructive text-xs mb-3 -mt-2">{errors.category.message}</p>
+              <p className="text-destructive text-xs mb-2">{errors.category.message}</p>
             )}
 
             {/* Fields grid */}
-            <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-5 mt-6 mb-5">
+
               {/* Prénom */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Prénom *</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Prénom *</label>
                 <input
                   {...register("firstName")}
                   placeholder="Jean"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors rounded-none"
                 />
                 {errors.firstName && <p className="text-destructive text-xs">{errors.firstName.message}</p>}
               </div>
 
               {/* Nom */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Nom *</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Nom *</label>
                 <input
                   {...register("lastName")}
                   placeholder="Dupont"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors rounded-none"
                 />
                 {errors.lastName && <p className="text-destructive text-xs">{errors.lastName.message}</p>}
               </div>
 
               {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Email *</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Email *</label>
                 <input
                   {...register("email")}
                   type="email"
                   placeholder="jean@exemple.com"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors rounded-none"
                 />
                 {errors.email && <p className="text-destructive text-xs">{errors.email.message}</p>}
               </div>
 
               {/* Téléphone */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Téléphone</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Téléphone</label>
                 <input
                   {...register("phone")}
                   type="tel"
                   placeholder="+33 6 00 00 00 00"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors rounded-none"
                 />
               </div>
 
               {/* Entreprise */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Entreprise</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Entreprise</label>
                 <input
                   {...register("company")}
-                  placeholder="Votre structure"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all"
+                  placeholder="Votre société"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors rounded-none"
                 />
               </div>
 
               {/* Pays */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Pays</label>
+              <div className="flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Pays</label>
                 <select
                   {...register("country")}
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground outline-none focus:border-primary focus:bg-primary/5 transition-all appearance-none cursor-pointer"
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground outline-none focus:border-foreground/60 transition-colors appearance-none cursor-pointer rounded-none"
                 >
-                  <option value="">Sélectionner…</option>
-                  {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                  <option value="" className="bg-background">France</option>
+                  {COUNTRIES.map((c) => <option key={c} value={c} className="bg-background">{c}</option>)}
                 </select>
               </div>
 
               {/* Message */}
-              <div className="col-span-2 flex flex-col gap-1.5">
-                <label className="text-[9px] font-medium tracking-[2px] uppercase text-muted-foreground">Message *</label>
+              <div className="col-span-2 flex flex-col gap-2">
+                <label className="text-[9px] font-medium tracking-[3px] uppercase text-muted-foreground">Message *</label>
                 <textarea
                   {...register("message")}
                   rows={4}
-                  placeholder="Décrivez brièvement votre projet ou votre demande…"
-                  className="bg-card border border-border rounded-md px-3 py-2.5 text-sm font-light text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary focus:bg-primary/5 transition-all resize-y"
+                  placeholder="Décrivez votre projet ou votre demande..."
+                  className="bg-transparent border-0 border-b border-foreground/20 pb-2 text-sm text-foreground placeholder:text-muted-foreground/35 outline-none focus:border-foreground/60 transition-colors resize-none rounded-none"
                 />
                 {errors.message && <p className="text-destructive text-xs">{errors.message.message}</p>}
               </div>
@@ -251,14 +247,10 @@ export default function Home() {
             <button
               type="submit"
               disabled={isSubmitting || submitMutation.isPending}
-              className="w-full py-3.5 bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-600 hover:to-sky-400 text-white rounded-md text-[10px] font-medium tracking-[3px] uppercase transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(26,86,160,0.4)] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none cursor-pointer"
+              className="w-full py-4 bg-foreground/10 hover:bg-foreground/15 text-foreground text-[10px] font-medium tracking-[4px] uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isSubmitting || submitMutation.isPending ? "Envoi en cours…" : "Envoyer ma demande"}
             </button>
-
-            <p className="text-[10px] text-muted-foreground/60 text-center mt-3 tracking-wide">
-              Vos données sont traitées de manière confidentielle et ne seront jamais partagées avec des tiers.
-            </p>
           </form>
         </div>
       </div>
