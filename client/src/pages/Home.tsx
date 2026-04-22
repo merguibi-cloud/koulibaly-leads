@@ -87,7 +87,7 @@ export default function Home() {
 
           {/* Identity */}
           <div className="mb-10">
-            <p className="text-[9px] font-medium tracking-[5px] uppercase text-primary mb-5">
+            <p className="text-[9px] font-medium tracking-[5px] uppercase text-white mb-5">
               Prise de contact
             </p>
 
@@ -203,7 +203,7 @@ export default function Home() {
 
           {/* Footer */}
           <p className="text-[9px] tracking-[3px] uppercase text-white/50 mt-10">
-            © 2025 Kalidou Koulibaly
+            © 2026 Kalidou Koulibaly
           </p>
         </div>
 
