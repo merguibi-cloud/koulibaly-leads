@@ -36,8 +36,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const inputClass = "bg-transparent border-0 border-b border-white/20 pb-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/60 transition-colors rounded-none w-full";
-const labelClass = "text-[9px] font-medium tracking-[3px] uppercase text-white/40";
+const inputClass = "bg-transparent border-0 border-b border-white/30 pb-2 text-sm text-white placeholder:text-white/25 outline-none focus:border-white/70 transition-colors rounded-none w-full";
+const labelClass = "text-[9px] font-medium tracking-[3px] uppercase text-white";
 
 export default function Home() {
   const [, navigate] = useLocation();
@@ -98,11 +98,11 @@ export default function Home() {
               Kalidou<br />Koulibaly
             </h1>
 
-            <p className="text-[11px] font-light tracking-[4px] uppercase text-white/50 mb-7">
+            <p className="text-[11px] font-light tracking-[4px] uppercase text-white mb-7">
               Défenseur&nbsp;·&nbsp;Entrepreneur&nbsp;·&nbsp;Investisseur
             </p>
 
-            <p className="text-sm font-light leading-relaxed text-white/70 max-w-sm">
+            <p className="text-sm font-light leading-relaxed text-white max-w-sm">
               Capitaine de l'équipe nationale du Sénégal, double Champion
               d'Afrique (2021 &amp; 2025), Kalidou Koulibaly construit aujourd'hui un
               héritage au-delà des terrains — investissements tech,
@@ -116,7 +116,7 @@ export default function Home() {
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex-1">
 
             {/* Category */}
-            <p className="text-[9px] font-medium tracking-[4px] uppercase text-white/40 mb-3">
+            <p className="text-[9px] font-medium tracking-[4px] uppercase text-white mb-3">
               Objet de votre demande
             </p>
             <div className="grid grid-cols-4 gap-2 mb-1">
@@ -128,8 +128,8 @@ export default function Home() {
                   className={`px-3 py-2.5 border text-center transition-colors duration-150 cursor-pointer
                     text-[9px] font-medium tracking-[1.5px] uppercase
                     ${selectedCategory === cat.id
-                      ? "border-white/80 text-white"
-                      : "border-white/20 text-white/40 hover:border-white/50 hover:text-white/80"
+                      ? "border-white bg-white/10 text-white"
+                      : "border-white text-white hover:bg-white/10"
                     }`}
                 >
                   {cat.label}
@@ -202,7 +202,7 @@ export default function Home() {
           </form>
 
           {/* Footer */}
-          <p className="text-[9px] tracking-[3px] uppercase text-white/20 mt-10">
+          <p className="text-[9px] tracking-[3px] uppercase text-white/50 mt-10">
             © 2025 Kalidou Koulibaly
           </p>
         </div>
